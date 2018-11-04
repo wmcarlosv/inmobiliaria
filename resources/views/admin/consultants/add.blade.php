@@ -1,7 +1,7 @@
 @extends('adminlte::page')
-@section('title', 'New Consultant')
+@section('title', 'Nuevo Asesor')
 @section('content_header')
-    <h1>Consultants</h1>
+    <h1>Asesores</h1>
 @stop
 
 @section('content')
@@ -16,32 +16,32 @@
             </div>
         @endif
     	<div class="panel-heading">
-    		<h2>New Consultant</h2>
+    		<h2>Nuevo Asesor</h2>
     	</div>
     	<div class="panel-body">
     		{!! Form::open(['route' => 'consultants.store', 'files' => true]) !!}
             <div class="form-group">
-                {!! Form::label('name', 'Name: ') !!}
+                {!! Form::label('name', 'Nombre: ') !!}
                 {!! Form::text('name',null,['id' => 'name', 'class' => 'form-control']) !!}
             </div>
             <div class="form-group">
-                {!! Form::label('phone', 'Phone: ') !!}
+                {!! Form::label('phone', 'Telefono: ') !!}
                 {!! Form::text('phone',null,['id' => 'phone', 'class' => 'form-control']) !!}
             </div>
             <div class="form-group">
-                {!! Form::label('email', 'Email: ') !!}
+                {!! Form::label('email', 'Correo: ') !!}
                 {!! Form::text('email',null,['id' => 'email', 'class' => 'form-control']) !!}
             </div>
             <div class="form-group">
-                {!! Form::label('direction', 'Direction: ') !!}
+                {!! Form::label('direction', 'Dirección: ') !!}
                 {!! Form::text('direction',null,['id' => 'direction', 'class' => 'form-control']) !!}
             </div>
             <div class="form-group">
-                {!! Form::label('avatar', 'Avatar: ') !!}
+                {!! Form::label('avatar', 'Foto: ') !!}
                 {!! Form::file('avatar',['id' => 'avatar', 'class' => 'form-control']) !!}
             </div>
-            {!! Form::button('<i class="fa fa-floppy-o"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success']) !!}
-            <a href="{{ route('consultants.index') }}" class="btn btn-danger"><i class="fa fa-times"></i> Cancel</a>
+            {!! Form::button('<i class="fa fa-floppy-o"></i> Guardar', ['type' => 'submit', 'class' => 'btn btn-success']) !!}
+            <a href="{{ route('consultants.index') }}" class="btn btn-danger"><i class="fa fa-times"></i> Cancelar</a>
             {!! Form::close() !!}
     	</div>
     </div>
