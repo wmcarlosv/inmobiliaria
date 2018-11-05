@@ -34,7 +34,7 @@
                         <td>{{ $consultant->direction }}</td>
                         <td>
                             @if( isset($consultant->avatar) and !empty($consultant->avatar) )
-                                <img src="{{ asset('storage/avatars') }}/{{ $consultant->avatar }}" width="80" height="100" class="img-thumbnail">
+                                <img src="{{ asset('application/storage/app/public/avatars') }}/{{ $consultant->avatar }}" width="80" height="100" class="img-thumbnail">
                             @else
                                 <img src="{{ asset('storage/avatars') }}/empty.jpg" width="80" height="100" class="img-thumbnail">
                             @endif

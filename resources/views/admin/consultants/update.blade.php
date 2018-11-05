@@ -39,7 +39,7 @@
             <div class="form-group">
                 {!! Form::label('avatar', 'Foto: ') !!}
                 @if(isset($consultant->avatar) and !empty($consultant->avatar))
-                    <img src="{{ asset('storage/avatars') }}/{{ $consultant->avatar }}" id="image-show" width="100" height="140" class="img-thumbnail">
+                    <img src="{{ asset('application/storage/app/public/avatars') }}/{{ $consultant->avatar }}" id="image-show" width="100" height="140" class="img-thumbnail">
                     {!! Form::button('<i class="fa fa-times"></i> Eliminar Foto',['type' => 'button', 'class' => 'btn btn-danger', 'id' => 'delete-imagen', 'data-id' => $consultant->id]) !!}
                     {!! Form::file('avatar',['id' => 'avatar', 'class' => 'form-control', 'style' => 'display:none;']) !!}
                 @else
@@ -57,8 +57,9 @@
     $(document).ready(function(){
         $("#delete-imagen").click(function(){
             var id = $(this).attr("data-id");
-
-            $.get('/admin/consultants/destroyimage/'+id, function( response ){
+            var url = '{{ asset("/admin/consultants/destroyimage") }}/'+id;
+            console.log(url);
+            $.get(url, function( response ){
                 var m = JSON.parse(response);
 
                 if(m.message == "delete"){
