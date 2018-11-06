@@ -137,7 +137,7 @@ return [
             'icon' => 'list-alt',
         ],
         [
-            'text' => 'Tipo de Inmobiliaria',
+            'text' => 'Tipo Propiedad',
             'url'  => 'admin/property-types',
             'icon' => 'window-restore',
         ],
@@ -152,7 +152,7 @@ return [
             'icon' => 'handshake-o',
         ],
         [
-            'text' => 'Inmueble',
+            'text' => 'Propiedad',
             'url'  => 'admin/properties',
             'icon' => 'home',
         ],
