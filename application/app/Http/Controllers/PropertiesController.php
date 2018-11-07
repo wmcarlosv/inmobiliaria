@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Amenity;
 use App\Property;
 use App\Direction;
 use App\PropertyType;
 use App\Management;
 use App\Consultant;
+use App\Feature;
 
 class PropertiesController extends Controller
 {
@@ -19,7 +21,6 @@ class PropertiesController extends Controller
     public function index()
     {
         $properties = Property::all();
-
         return view('admin.properties.home', ['properties' => $properties]);
     }
 
@@ -34,7 +35,7 @@ class PropertiesController extends Controller
         $diections_array = [];
         $diections_array[''] = 'Seleccionar';
         foreach($directions as $direction) { 
-            $diections_array[$direction->id] = $direction->departament.", ".$direction->zone.", ".$direction->ubication;
+            $diections_array[$direction->id] = $direction->departament." ".$direction->zone." ".$direction->ubication;
         }
 
         $propertytypes = PropertyType::all();
@@ -54,13 +55,19 @@ class PropertiesController extends Controller
         $consultants_array = [];
         $consultants_array[''] = 'Seleccionar';
         foreach ($consultants as $consultant) {
-            $consultants_array[$consultant->id] = $consultant->name.", ".$consultant->phone.", ".$consultant->email;
+            $consultants_array[$consultant->id] = $consultant->name." ".$consultant->phone." ".$consultant->email;
         }
+
+        $amenities = Amenity::all();
+        $features = Feature::all();
+
         return view('admin.properties.add',[
             'directions' => $diections_array,
             'propertytypes' => $propertytypes_array,
             'managements' => $managements_array,
-            'consultants' => $consultants_array
+            'consultants' => $consultants_array,
+            'amenities' => $amenities,
+            'features' => $features
         ]);
     }
 
@@ -73,12 +80,19 @@ class PropertiesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'direction_id' => 'required',
+            'propertytype_id' => 'required',
+            'management_id' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'stratum' => 'required',
+            'square_meter' => 'required',
+            'consultant_id' => 'required'
         ]);
 
-        $feature = Property::create($request->all());
+        $property = Property::create($request->all());
 
-        flash()->overlay('Record Included with Success', 'Alert!!');
+        flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
 
         return redirect()->route('properties.index');
     }
@@ -102,7 +116,7 @@ class PropertiesController extends Controller
      */
     public function edit($id)
     {
-        $feature = Property::find($id);
+        $property = Property::find($id);
         return view('admin.properties.update',['feature' => $feature]);
     }
 
@@ -120,13 +134,13 @@ class PropertiesController extends Controller
             'name' => 'required'
         ]);
 
-        $feature = Property::findOrFail($id);
+        $property = Property::findOrFail($id);
 
         $feature->name = $request->input('name');
 
         $feature->update();
 
-        flash()->overlay('Register updated with Success', 'Alert!!');
+        flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');
 
         return redirect()->route('properties.index');
     }
@@ -139,11 +153,11 @@ class PropertiesController extends Controller
      */
     public function destroy($id)
     {
-        $feature = Property::findOrFail($id);
+        $property = Property::findOrFail($id);
 
         $feature->delete();
 
-        flash()->overlay('Record removed Successfully', 'Alert!!');
+        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
 
         return redirect()->route('properties.index');
     }

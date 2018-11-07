@@ -69,7 +69,7 @@ class ConsultantsController extends Controller
             Storage::putFileAs('public/avatars', new File($request->file('avatar')->path()), $avatar);
         }
 
-        flash()->overlay('Record Included with Success', 'Alert!!');
+        flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
 
         return redirect()->route('consultants.index');
     }
@@ -131,7 +131,7 @@ class ConsultantsController extends Controller
             Storage::putFileAs('public/avatars', new File($request->file('avatar')->path()), $avatar);
         }
 
-        flash()->overlay('Register updated with Success', 'Alert!!');
+        flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');
 
         return redirect()->route('consultants.index');
     }
@@ -150,7 +150,7 @@ class ConsultantsController extends Controller
         
         $consultant->delete();
 
-        flash()->overlay('Record removed Successfully', 'Alert!!');
+        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
 
         return redirect()->route('consultants.index');
     }

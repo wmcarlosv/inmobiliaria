@@ -42,7 +42,7 @@ class ManagementsController extends Controller
 
         $management = Management::create($request->all());
 
-        flash()->overlay('Record Included with Success', 'Alert!!');
+        flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
 
         return redirect()->route('managements.index');
     }
@@ -90,7 +90,7 @@ class ManagementsController extends Controller
 
         $management->update();
 
-        flash()->overlay('Register updated with Success', 'Alert!!');
+        flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');
 
         return redirect()->route('managements.index');
     }
@@ -107,7 +107,7 @@ class ManagementsController extends Controller
 
         $management->delete();
 
-        flash()->overlay('Record removed Successfully', 'Alert!!');
+        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
 
         return redirect()->route('managements.index');
     }

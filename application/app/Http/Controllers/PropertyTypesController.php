@@ -42,7 +42,7 @@ class PropertyTypesController extends Controller
 
         $propertytype = PropertyType::create($request->all());
 
-        flash()->overlay('Record Included with Success', 'Alert!!');
+        flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
 
         return redirect()->route('property-types.index');
     }
@@ -90,7 +90,7 @@ class PropertyTypesController extends Controller
 
         $propertytype->update();
 
-        flash()->overlay('Register updated with Success', 'Alert!!');
+        flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');
 
         return redirect()->route('property-types.index');
     }
@@ -107,7 +107,7 @@ class PropertyTypesController extends Controller
 
         $propertytype->delete();
 
-        flash()->overlay('Record removed Successfully', 'Alert!!');
+        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
 
         return redirect()->route('property-types.index');
     }

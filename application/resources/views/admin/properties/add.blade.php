@@ -1,7 +1,7 @@
 @extends('adminlte::page')
-@section('title', 'Nueva Inmobiliaria')
+@section('title', 'Nueva Propiedad')
 @section('content_header')
-    <h1>Inmobiliarias</h1>
+    <h1>Propiedades</h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
             </div>
         @endif
     	<div class="panel-heading">
-    		<h2>Nueva Inmobiliaria</h2>
+    		<h2>Nueva Propiedad</h2>
     	</div>
     	<div class="panel-body">
             {!! Form::open(['route' => 'properties.store']) !!}
@@ -32,7 +32,7 @@
                 <div id="home" class="tab-pane fade in active">
                     <div class="form-group">
                         {!! Form::label('direction_id', 'Dirección: ') !!}
-                        {!! Form::select('direction_id',$directions,null,['class' => 'form-control']) !!}
+                        {!! Form::select('direction_id',$directions,null,['class' => 'form-control select-2-single', 'style'=>'width:100%;']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('property_type_id', 'Tipo de Inmobiliaria: ') !!}
@@ -60,14 +60,28 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('consultant_id', 'Asesor: ') !!}
-                        {!! Form::select('consultant_id',$consultants,null,['class' => 'form-control']) !!}
+                        {!! Form::select('consultant_id',$consultants,null,['class' => 'form-control select-2-single', 'style'=>'width:100%;']) !!}
                     </div>
                 </div>
                 <div id="menu1" class="tab-pane fade">
+                    <ul class="list-group">
+                        @foreach($amenities as $amenity)
+                            <li class="list-group-item">{!! Form::checkbox('amenities[]', $amenity->id, false) !!} {{ $amenity->name }}</li>
+                        @endforeach
+                    </ul>
                 </div>
                 <div id="menu2" class="tab-pane fade">
+                    <ul class="list-group">
+                        @foreach($features as $feature)
+                            <li class="list-group-item">{!! Form::checkbox('features[]', $feature->id, false) !!} {{ $feature->name }}</li>
+                        @endforeach
+                    </ul>
                 </div>
                 <div id="menu3" class="tab-pane fade">
+                    {!! Form::button('<i class="fa fa-plus"></i> Agregar Foto',['type' => 'button', 'class' => 'btn btn-success','id' => 'agregar-foto']) !!}
+                    <br />
+                    <br />
+                    <ul class="list-group" id="file-list"></ul>
                 </div>
                 {!! Form::button('<i class="fa fa-floppy-o"></i> Guardar', ['type' => 'submit', 'class' => 'btn btn-success']) !!}
                 <a href="{{ route('properties.index') }}" class="btn btn-danger"><i class="fa fa-times"></i> Cancelar</a>
@@ -76,3 +90,16 @@
     	</div>
     </div>
 @endsection
+@section('js')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#agregar-foto").click(function(){
+            $("#file-list").append('<li class="list-group-item"><input type="file" name="photos[]" style="display:inline; width:80%;" /><button type="button" class="btn btn-danger remove-file">X</button></li>');
+        });
+
+        $("body").on('click','button.remove-file',function(){
+            $(this).parent().remove();
+        });
+    });
+</script>
+@stop

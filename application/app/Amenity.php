@@ -8,4 +8,5 @@ class Amenity extends Model
 {
     protected $table = "amenities";
     protected $fillable = ['name'];
+
 }

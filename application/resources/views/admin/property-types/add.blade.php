@@ -1,7 +1,7 @@
 @extends('adminlte::page')
-@section('title', 'Nuevo Tipo de Inmobiliaria')
+@section('title', 'Nuevo Tipo de Propiedad')
 @section('content_header')
-    <h1>Tipos de Inmobiliarias</h1>
+    <h1>Tipos de Propiedad</h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
             </div>
         @endif
     	<div class="panel-heading">
-    		<h2>Nuevo Tipo de Inmobiliaria</h2>
+    		<h2>Nuevo Tipo de Propiedad</h2>
     	</div>
     	<div class="panel-body">
     		{!! Form::open(['route' => 'property-types.store']) !!}

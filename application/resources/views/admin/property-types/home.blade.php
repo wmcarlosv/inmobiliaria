@@ -1,17 +1,17 @@
 @extends('adminlte::page')
-@section('title', 'Tipos de Inmobiliaria')
+@section('title', 'Tipos de Propiedad')
 @section('content_header')
-    <h1>Tipos de Inmobiliarias</h1>
+    <h1>Tipos de Propiedad</h1>
 @stop
 
 @section('content')
     <div class="panel panel-default">
     	<div class="panel-heading">
-    		<h2>Todos los Tipos de Inmobiliarias</h2>
+    		<h2>Todos los Tipos de Propiedad</h2>
     	</div>
     	<div class="panel-body">
     		@include('flash::message')
-    		<a href="{{ route('property-types.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> Nuevo Tipo de Inmobiliaria</a>
+    		<a href="{{ route('property-types.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> Nuevo Tipo de Propiedad</a>
     		<br />
     		<br />
     		<table class="table table-bordered table-striped data-table">

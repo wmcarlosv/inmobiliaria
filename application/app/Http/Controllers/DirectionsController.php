@@ -44,7 +44,7 @@ class DirectionsController extends Controller
 
         $direction = Direction::create($request->all());
 
-        flash()->overlay('Record Included with Success', 'Alert!!');
+        flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
 
         return redirect()->route('directions.index');
     }
@@ -95,7 +95,7 @@ class DirectionsController extends Controller
 
         $direction->update();
 
-        flash()->overlay('Register updated with Success', 'Alert!!');
+        flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');
 
         return redirect()->route('directions.index');
     }
@@ -112,7 +112,7 @@ class DirectionsController extends Controller
 
         $direction->delete();
 
-        flash()->overlay('Record removed Successfully', 'Alert!!');
+        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
 
         return redirect()->route('directions.index');
     }

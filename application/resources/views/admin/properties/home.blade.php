@@ -1,24 +1,24 @@
 @extends('adminlte::page')
-@section('title', 'Inmobiliarios')
+@section('title', 'Propiedades')
 @section('content_header')
-    <h1>Inmobiliarios</h1>
+    <h1>Propiedades</h1>
 @stop
 
 @section('content')
     <div class="panel panel-default">
     	<div class="panel-heading">
-    		<h2>Todas los Inmobiliarios</h2>
+    		<h2>Todas las Propiedades</h2>
     	</div>
     	<div class="panel-body">
     		@include('flash::message')
-    		<a href="{{ route('properties.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> Nuevo Inmobiliario</a>
+    		<a href="{{ route('properties.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> Nueva Propiedad</a>
     		<br />
     		<br />
     		<table class="table table-bordered table-striped data-table">
     			<thead>
     				<th>ID</th>
                     <th>Descripci&oacute;n</th>
-                    <th>Tipo de Inmobiliario</th>
+                    <th>Tipo de Propiedades</th>
                     <th>Gestion</th>
     				<th>Acciones</th>
     			</thead>
