@@ -128,16 +128,20 @@ class PropertiesController extends Controller
             $property->features()->attach($feature);
         }
 
-        foreach ($request->photos as $photo) {
+        if(isset($request->photos) and !empty($request->photos)){
 
-            $data = $photo->store('public/photos');
-            $data = explode("/", $data);
+            foreach ($request->photos as $photo) {
 
-            $property_photo = PropertyPhoto::create([
-                'property_id' => $property->id,
-                'name' => $data[2],
-                'url' => $data[2]
-            ]);
+                $data = $photo->store('public/photos');
+                $data = explode("/", $data);
+
+                $property_photo = PropertyPhoto::create([
+                    'property_id' => $property->id,
+                    'name' => $data[2],
+                    'url' => $data[2]
+                ]);
+            }
+            
         }
         
         flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
@@ -268,16 +272,20 @@ class PropertiesController extends Controller
             $property->features()->attach($feature);
         }
 
-        foreach ($request->photos as $photo) {
+        if(isset($request->photos) and !empty($request->photos)){
 
-            $data = $photo->store('public/photos');
-            $data = explode("/", $data);
+            foreach ($request->photos as $photo) {
 
-            $property_photo = PropertyPhoto::create([
-                'property_id' => $property->id,
-                'name' => $data[2],
-                'url' => $data[2]
-            ]);
+                $data = $photo->store('public/photos');
+                $data = explode("/", $data);
+
+                $property_photo = PropertyPhoto::create([
+                    'property_id' => $property->id,
+                    'name' => $data[2],
+                    'url' => $data[2]
+                ]);
+            }
+            
         }
 
         flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');
@@ -310,7 +318,7 @@ class PropertiesController extends Controller
         $photo = PropertyPhoto::find($id);
         $photo->delete();
         Storage::delete('public/photos/'.$photo->url);
-        
+
         print json_encode(['borrado' => 'si']);
     }
 }
