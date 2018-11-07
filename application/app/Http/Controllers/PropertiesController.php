@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Amenity;
 use App\Property;
 use App\Direction;
@@ -267,6 +268,18 @@ class PropertiesController extends Controller
             $property->features()->attach($feature);
         }
 
+        foreach ($request->photos as $photo) {
+
+            $data = $photo->store('public/photos');
+            $data = explode("/", $data);
+
+            $property_photo = PropertyPhoto::create([
+                'property_id' => $property->id,
+                'name' => $data[2],
+                'url' => $data[2]
+            ]);
+        }
+
         flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');
 
         return redirect()->route('properties.index');
@@ -290,5 +303,14 @@ class PropertiesController extends Controller
         flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
 
         return redirect()->route('properties.index');
+    }
+
+    public function deletephoto($id = NULL){
+
+        $photo = PropertyPhoto::find($id);
+        $photo->delete();
+        Storage::delete('public/photos/'.$photo->url);
+        
+        print json_encode(['borrado' => 'si']);
     }
 }

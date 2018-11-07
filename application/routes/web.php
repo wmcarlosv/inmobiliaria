@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin'], function(){
 	Route::get('/consultants/destroyimage/{id}', 'ConsultantsController@destroyimage');
 	Route::resource('managements','ManagementsController');
 	Route::resource('properties','PropertiesController');
+	Route::get('/properties/delete_photo/{id}','PropertiesController@deletephoto');
 	Route::resource('users','UsersController');
 });
 

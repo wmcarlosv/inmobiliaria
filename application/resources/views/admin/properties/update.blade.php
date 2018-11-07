@@ -19,7 +19,7 @@
     		<h2>Actualizar Caracteristica</h2>
     	</div>
     	<div class="panel-body">
-    		{!! Form::open(['method' => 'PUT', 'route' => ['properties.update', $property->id]]) !!}
+    		{!! Form::open(['method' => 'PUT', 'route' => ['properties.update', $property->id], 'files' => true]) !!}
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Datos</a></li>
                 <li><a data-toggle="tab" href="#menu1">Amenidades</a></li>
@@ -82,9 +82,9 @@
                     <br />
                     <ul class="list-group" id="file-list">
                         @foreach($photos as $photo)
-                            <li class="list-group-item">
+                            <li class="list-group-item" id="photo_{{ $photo->id }}">
                                 <img src="{{ asset('application/storage/app/public/photos') }}/{{ $photo->url }}" width="80" height="100" class="img-thumbnail">
-                                {{ Form::button('<i class="fa fa-times"></i> Eliminar Imagen',['type' => 'button', 'class' => 'delete-photo btn btn-danger']) }}
+                                {{ Form::button('<i class="fa fa-times"></i> Eliminar Imagen',['type' => 'button', 'class' => 'delete-photo btn btn-danger','data-id' => $photo->id]) }}
                             </li>
                         @endforeach
                     </ul>
@@ -105,6 +105,25 @@
 
         $("body").on('click','button.remove-file',function(){
             $(this).parent().remove();
+        });
+
+        $(".delete-photo").click(function(){
+            if(confirm("Esta seguro de elimiar esta foto?")){
+               var id = $(this).attr("data-id");
+                var url = "{{ asset('/admin/properties/delete_photo') }}/"+id;
+
+                $.get(url, function( response ){
+                    var data = JSON.parse(response);
+
+                    if(data.borrado.trim() == 'si'){
+
+                        alert("Imagen borrada con Exito!!");
+                        $("#photo_"+id).remove();
+                    }
+
+                }); 
+
+            }
         });
 
         @foreach($property->amenities as $amenity)
