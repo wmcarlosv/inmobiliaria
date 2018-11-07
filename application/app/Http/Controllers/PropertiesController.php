@@ -267,6 +267,7 @@ class PropertiesController extends Controller
         $property = Property::findOrFail($id);
 
         $property->amenities()->detach();
+        $property->features()->detach();
 
         $property->delete();
 
