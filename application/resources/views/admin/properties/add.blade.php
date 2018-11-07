@@ -19,7 +19,7 @@
     		<h2>Nueva Propiedad</h2>
     	</div>
     	<div class="panel-body">
-            {!! Form::open(['route' => 'properties.store']) !!}
+            {!! Form::open(['route' => 'properties.store', 'files' => true]) !!}
 
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Datos</a></li>

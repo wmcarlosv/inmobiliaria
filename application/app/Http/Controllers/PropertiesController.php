@@ -10,6 +10,7 @@ use App\PropertyType;
 use App\Management;
 use App\Consultant;
 use App\Feature;
+use App\PropertyPhoto;
 
 class PropertiesController extends Controller
 {
@@ -125,6 +126,18 @@ class PropertiesController extends Controller
             }
             $property->features()->attach($feature);
         }
+
+        foreach ($request->photos as $photo) {
+
+            $data = $photo->store('public/photos');
+            $data = explode("/", $data);
+
+            $property_photo = PropertyPhoto::create([
+                'property_id' => $property->id,
+                'name' => $data[2],
+                'url' => $data[2]
+            ]);
+        }
         
         flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
 
@@ -172,6 +185,7 @@ class PropertiesController extends Controller
         foreach ($managements as $management) {
             $managements_array[$management->id] = $management->name;
         }
+
         $consultants = Consultant::all();
         $consultants_array = [];
         $consultants_array[''] = 'Seleccionar';
@@ -181,6 +195,7 @@ class PropertiesController extends Controller
 
         $amenities = Amenity::all();
         $features = Feature::all();
+        $photos = PropertyPhoto::where('property_id','=',$property->id)->get();
 
         return view('admin.properties.update',[
             'property' => $property,
@@ -189,7 +204,8 @@ class PropertiesController extends Controller
             'managements' => $managements_array,
             'consultants' => $consultants_array,
             'amenities' => $amenities,
-            'features' => $features
+            'features' => $features,
+            'photos' => $photos
         ]);
     }
 

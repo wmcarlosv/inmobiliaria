@@ -80,7 +80,14 @@
                     {!! Form::button('<i class="fa fa-plus"></i> Agregar Foto',['type' => 'button', 'class' => 'btn btn-success','id' => 'agregar-foto']) !!}
                     <br />
                     <br />
-                    <ul class="list-group" id="file-list"></ul>
+                    <ul class="list-group" id="file-list">
+                        @foreach($photos as $photo)
+                            <li class="list-group-item">
+                                <img src="{{ asset('application/storage/app/public/photos') }}/{{ $photo->url }}" width="80" height="100" class="img-thumbnail">
+                                {{ Form::button('<i class="fa fa-times"></i> Eliminar Imagen',['type' => 'button', 'class' => 'delete-photo btn btn-danger']) }}
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
                 {!! Form::button('<i class="fa fa-floppy-o"></i> Guardar', ['type' => 'submit', 'class' => 'btn btn-success']) !!}
                 <a href="{{ route('properties.index') }}" class="btn btn-danger"><i class="fa fa-times"></i> Cancelar</a>

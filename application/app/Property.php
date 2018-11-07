@@ -17,6 +17,10 @@ class Property extends Model
     	return $this->belongsToMany('App\Feature','property_features','property_id','feature_id');
     }
 
+    public function photos(){
+    	return $this->belongsToMany('App\PropertyPhoto','property_photos');
+    }
+
     public function property_type(){
     	return $this->belongsTo('App\PropertyType');
     }
