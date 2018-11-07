@@ -26,9 +26,9 @@
     				@foreach($properties as $property)
     				<tr>
     					<td>{{ $property->id }}</td>
-    					<td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ $property->description }}</td>
+    					<td>{{ $property->property_type->name }}</td>
+                        <td>{{ $property->management->name }}</td>
     					<td>
     						<a href="{{ route('properties.edit',['id' => $property->id]) }}" class="btn btn-info"><i class="fa fa-pencil"></i> Actualizar</a>
     						{!! Form::open(['method' => 'DELETE', 'style' => 'display:inline;','route' => ['properties.destroy', $property->id]],null,null,['style' => 'display:inline;']) !!}
