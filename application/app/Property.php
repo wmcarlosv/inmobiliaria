@@ -14,7 +14,7 @@ class Property extends Model
     }
 
     public function features(){
-    	return $this->belongsToMay('App\Feature','property_features','property_id','feature_id');
+    	return $this->belongsToMany('App\Feature','property_features','property_id','feature_id');
     }
 
     public function property_type(){

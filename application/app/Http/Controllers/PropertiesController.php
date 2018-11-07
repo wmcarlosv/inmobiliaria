@@ -104,6 +104,7 @@ class PropertiesController extends Controller
         $property->save();
 
         $amenities_array = $request->input('amenities');
+        $features_array = $request->input('features');
 
         if(isset($amenities_array) and !empty($amenities_array)){
             $cont = 0;
@@ -113,6 +114,16 @@ class PropertiesController extends Controller
                 $cont++;
             }
             $property->amenities()->attach($amenity);
+        }
+
+        if(isset($features_array) and !empty($features_array)){
+            $contf = 0;
+            for($i=0; $i < count($features_array); $i++){
+                $feature[$contf]['property_id'] = $property->id;
+                $feature[$contf]['feature_id'] = $features_array[$i];
+                $contf++;
+            }
+            $property->features()->attach($feature);
         }
         
         flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
@@ -214,10 +225,11 @@ class PropertiesController extends Controller
         $property->consultant_id = $request->input('consultant_id');
 
         $property->amenities()->detach();
-        
+        $property->features()->detach();
         $property->update();
 
         $amenities_array = $request->input('amenities');
+        $features_array = $request->input('features');
 
         if(isset($amenities_array) and !empty($amenities_array)){
             $cont = 0;
@@ -227,6 +239,16 @@ class PropertiesController extends Controller
                 $cont++;
             }
             $property->amenities()->attach($amenity);
+        }
+
+        if(isset($features_array) and !empty($features_array)){
+            $contf = 0;
+            for($i=0; $i < count($features_array); $i++){
+                $feature[$contf]['property_id'] = $property->id;
+                $feature[$contf]['feature_id'] = $features_array[$i];
+                $contf++;
+            }
+            $property->features()->attach($feature);
         }
 
         flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');

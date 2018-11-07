@@ -72,7 +72,7 @@
                 <div id="menu2" class="tab-pane fade">
                     <ul class="list-group">
                         @foreach($features as $feature)
-                            <li class="list-group-item">{!! Form::checkbox('features[]', $feature->id, false) !!} {{ $feature->name }}</li>
+                            <li class="list-group-item">{!! Form::checkbox('features[]', $feature->id, false, ['id' => 'feature_'.$feature->id]) !!} {{ $feature->name }}</li>
                         @endforeach
                     </ul>
                 </div>
@@ -102,6 +102,10 @@
 
         @foreach($property->amenities as $amenity)
             $("#amenity_{{$amenity->id }}").prop('checked', true);
+        @endforeach
+
+        @foreach($property->features as $feature)
+            $("#feature_{{ $feature->id }}").prop('checked', true);
         @endforeach
 
     });
