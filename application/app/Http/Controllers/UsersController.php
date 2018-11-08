@@ -14,7 +14,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('admin.users.home', ['users' => $users]);
     }
 
     /**
@@ -24,7 +25,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.add');
     }
 
     /**
@@ -35,7 +36,23 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'user_type' => 'required',
+            'password' => 'required'
+        ]);
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->user_type = $request->input('user_type');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        flash()->overlay('Registro Incluido con Exito!!', 'Alerta!!');
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -57,7 +74,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = user::find($id);
+        return view('admin.users.update',['user' => $user]);
     }
 
     /**
@@ -69,7 +87,24 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'user_type' => 'required'
+        ]);
+
+        $user = user::findOrFail($id);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->user_type = $request->input('user_type');
+
+        $user->update();
+
+        flash()->overlay('Registro Actualizado con Exito!!', 'Alerta!!');
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -80,6 +115,12 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = user::findOrFail($id);
+
+        $user->delete();
+
+        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
+
+        return redirect()->route('users.index');
     }
 }

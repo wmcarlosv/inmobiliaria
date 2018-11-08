@@ -35,7 +35,7 @@
                         {!! Form::select('direction_id',$directions,null,['class' => 'form-control select-2-single', 'style'=>'width:100%;']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('property_type_id', 'Tipo de Inmobiliaria: ') !!}
+                        {!! Form::label('property_type_id', 'Tipo de Propiedad: ') !!}
                         {!! Form::select('property_type_id',$propertytypes,null,['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
@@ -81,7 +81,9 @@
                     {!! Form::button('<i class="fa fa-plus"></i> Agregar Foto',['type' => 'button', 'class' => 'btn btn-success','id' => 'agregar-foto']) !!}
                     <br />
                     <br />
-                    <ul class="list-group" id="file-list"></ul>
+                    <ul class="list-group" id="file-list">
+                        <li class="list-group-item" id="por_defecto"><center>Sin Imagenes</center></li>
+                    </ul>
                 </div>
                 {!! Form::button('<i class="fa fa-floppy-o"></i> Guardar', ['type' => 'submit', 'class' => 'btn btn-success']) !!}
                 <a href="{{ route('properties.index') }}" class="btn btn-danger"><i class="fa fa-times"></i> Cancelar</a>
@@ -93,11 +95,31 @@
 @section('js')
 <script type="text/javascript">
     $(document).ready(function(){
+
+
         $("#agregar-foto").click(function(){
-            $("#file-list").append('<li class="list-group-item"><input type="file" name="photos[]" style="display:inline; width:80%;" /><button type="button" class="btn btn-danger remove-file">X</button></li>');
+
+            $("#file-list").append('<li class="list-group-item" data-photo="si"><input type="file" name="photos[]" style="display:inline; width:80%;" /><button type="button" class="btn btn-danger remove-file">X</button></li>');
+
+            $("#por_defecto").remove();
         });
 
         $("body").on('click','button.remove-file',function(){
+            var fotos = document.getElementsByTagName("li");
+            var contador = 0;
+
+            for(var i=0; i< fotos.length; i++){
+
+                if(fotos[i].getAttribute("data-photo") == "si"){
+                    contador++;
+                }
+
+            }
+
+            if(contador == 1){
+                $("#file-list").append('<li class="list-group-item" id="por_defecto" data-photo="si"><center>Sin Imagenes</center></li>');
+            }
+
             $(this).parent().remove();
         });
     });

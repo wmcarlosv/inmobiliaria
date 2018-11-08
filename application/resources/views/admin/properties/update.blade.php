@@ -34,7 +34,7 @@
                         {!! Form::select('direction_id',$directions,$property->direction_id,['class' => 'form-control select-2-single', 'style'=>'width:100%;']) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('property_type_id', 'Tipo de Inmobiliaria: ') !!}
+                        {!! Form::label('property_type_id', 'Tipo de Propiedad: ') !!}
                         {!! Form::select('property_type_id',$propertytypes,$property->property_type_id,['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
@@ -81,12 +81,16 @@
                     <br />
                     <br />
                     <ul class="list-group" id="file-list">
-                        @foreach($photos as $photo)
-                            <li class="list-group-item" id="photo_{{ $photo->id }}">
-                                <img src="{{ asset('application/storage/app/public/photos') }}/{{ $photo->url }}" width="80" height="100" class="img-thumbnail">
-                                {{ Form::button('<i class="fa fa-times"></i> Eliminar Imagen',['type' => 'button', 'class' => 'delete-photo btn btn-danger','data-id' => $photo->id]) }}
-                            </li>
-                        @endforeach
+                        @if( count($photos) > 0 )
+                            @foreach($photos as $photo)
+                                <li class="list-group-item" id="photo_{{ $photo->id }}">
+                                    <img src="{{ asset('application/storage/app/public/photos') }}/{{ $photo->url }}" width="80" height="100" class="img-thumbnail">
+                                    {{ Form::button('<i class="fa fa-times"></i> Eliminar Imagen',['type' => 'button', 'class' => 'delete-photo btn btn-danger','data-id' => $photo->id]) }}
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="list-group-item" id="por_defecto"><center>Sin Imagenes</center></li>
+                        @endif
                     </ul>
                 </div>
                 {!! Form::button('<i class="fa fa-floppy-o"></i> Guardar', ['type' => 'submit', 'class' => 'btn btn-success']) !!}
@@ -100,10 +104,28 @@
     $(document).ready(function(){
 
         $("#agregar-foto").click(function(){
-            $("#file-list").append('<li class="list-group-item"><input type="file" name="photos[]" style="display:inline; width:80%;" /><button type="button" class="btn btn-danger remove-file">X</button></li>');
+            $("#file-list").append('<li class="list-group-item" data-photo="si"><input type="file" name="photos[]" style="display:inline; width:80%;" /><button type="button" class="btn btn-danger remove-file">X</button></li>');
+            $("#por_defecto").remove();
         });
 
         $("body").on('click','button.remove-file',function(){
+            var fotos = document.getElementsByTagName("li");
+            var contador = 0;
+
+            for(var i=0; i< fotos.length; i++){
+
+                if(fotos[i].getAttribute("data-photo") == "si"){
+                    contador++;
+                }
+
+            }
+
+            if(contador == 1){
+                $("#file-list").append('<li class="list-group-item" id="por_defecto" data-photo="si"><center>Sin Imagenes</center></li>');
+            }
+
+            console.log(contador);
+
             $(this).parent().remove();
         });
 

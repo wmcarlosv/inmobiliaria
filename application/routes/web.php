@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'admin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 	Route::resource('directions', 'DirectionsController');
 	Route::resource('features','FeaturesController');
 	Route::resource('amenities','AmenitiesController');
