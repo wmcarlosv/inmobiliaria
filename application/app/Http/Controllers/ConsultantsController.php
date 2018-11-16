@@ -146,8 +146,8 @@ class ConsultantsController extends Controller
     {
         try{
             $consultant = Consultant::findOrFail($id);
-            Storage::delete('public/avatars/'.$consultant->avatar);
             $consultant->delete();
+            Storage::delete('public/avatars/'.$consultant->avatar);
             flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
         }catch(\Illuminate\Database\QueryException $e){
             flash()->overlay('Error al tratar de eliminar, es posible que este registro este asociado a otro!!', 'Alerta!!');
