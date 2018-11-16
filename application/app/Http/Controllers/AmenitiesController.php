@@ -104,12 +104,13 @@ class AmenitiesController extends Controller
      */
     public function destroy($id)
     {
-        $amenity = Amenity::findOrFail($id);
-
-        $amenity->delete();
-        
-        flash()->overlay('Registro eliminado con Exito!!', 'Alerta!!');
-
+        try{
+            $amenity = Amenity::findOrFail($id);
+            $amenity->delete();
+            flash()->overlay('Registro eliminado con Exito!!', 'Alerta!!');
+        }catch(\Illuminate\Database\QueryException $e){
+            flash()->overlay('Error al tratar de eliminar, es posible que este registro este asociado a otro!!', 'Alerta!!');
+        }
         return redirect()->route('amenities.index');
     }
 }

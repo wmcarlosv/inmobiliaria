@@ -103,11 +103,13 @@ class DepartamentsController extends Controller
      */
     public function destroy($id)
     {
-        $departament = Departament::findOrFail($id);
-
-        $departament->delete();
-
-        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
+        try{
+            $departament = Departament::findOrFail($id);
+            $departament->delete();
+            flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
+        }catch(\Illuminate\Database\QueryException $e){
+            flash()->overlay('Error al tratar de eliminar, es posible que este registro este asociado a otro!!', 'Alerta!!');
+        }
 
         return redirect()->route('departaments.index');
     }

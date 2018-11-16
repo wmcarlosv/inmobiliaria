@@ -119,12 +119,13 @@ class CitiesController extends Controller
      */
     public function destroy($id)
     {
-        $city = City::findOrFail($id);
-
-        $city->delete();
-
-        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
-
+        try{
+            $city = City::findOrFail($id);
+            $city->delete();
+            flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
+        }catch(\Illuminate\Database\QueryException $e){
+            flash()->overlay('Error al tratar de eliminar, es posible que este registro este asociado a otro!!', 'Alerta!!');
+        }
         return redirect()->route('cities.index');
     }
 

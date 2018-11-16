@@ -103,11 +103,15 @@ class PropertyTypesController extends Controller
      */
     public function destroy($id)
     {
-        $propertytype = PropertyType::findOrFail($id);
+        try{
+            $propertytype = PropertyType::findOrFail($id);
 
-        $propertytype->delete();
+            $propertytype->delete();
 
-        flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
+            flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
+        }catch(\Illuminate\Database\QueryException $e){
+            flash()->overlay('Error al tratar de eliminar, es posible que este registro este asociado a otro!!', 'Alerta!!');
+        }
 
         return redirect()->route('property-types.index');
     }

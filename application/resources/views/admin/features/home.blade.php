@@ -11,7 +11,7 @@
     	</div>
     	<div class="panel-body">
     		@include('flash::message')
-    		<a href="{{ route('features.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> New Feature</a>
+    		<a href="{{ route('features.create') }}" class="btn btn-success"><i class="fa fa-plus"></i> Nueva Caracteristica</a>
     		<br />
     		<br />
     		<table class="table table-bordered table-striped data-table">
