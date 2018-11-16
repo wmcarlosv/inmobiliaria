@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Departament;
+use Illuminate\Database\QueryException;
 
 class DepartamentsController extends Controller
 {
@@ -107,7 +108,7 @@ class DepartamentsController extends Controller
             $departament = Departament::findOrFail($id);
             $departament->delete();
             flash()->overlay('Registro Eliminado con Exito!!', 'Alerta!!');
-        }catch(\Illuminate\Database\QueryException $e){
+        }catch(QueryException $e){
             flash()->overlay('Error al tratar de eliminar, es posible que este registro este asociado a otro!!', 'Alerta!!');
         }
 
