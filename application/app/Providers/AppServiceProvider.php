@@ -41,8 +41,13 @@ class AppServiceProvider extends ServiceProvider
                             'icon'        => 'dashboard',
                         ],
                         [
-                            'text' => 'Direcciones',
-                            'url'  => 'admin/directions',
+                            'text' => 'Departamentos',
+                            'url'  => 'admin/departaments',
+                            'icon' => 'map',
+                        ],
+                        [
+                            'text' => 'Ciudades',
+                            'url'  => 'admin/cities',
                             'icon' => 'map',
                         ],
                         [

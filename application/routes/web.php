@@ -19,7 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
-	Route::resource('directions', 'DirectionsController');
+	Route::resource('departaments', 'DepartamentsController');
+	Route::resource('cities', 'CitiesController');
 	Route::resource('features','FeaturesController');
 	Route::resource('amenities','AmenitiesController');
 	Route::resource('property-types','PropertyTypesController');

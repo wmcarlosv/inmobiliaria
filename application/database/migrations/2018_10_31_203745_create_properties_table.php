@@ -15,7 +15,8 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('direction_id')->unsigned();
+            $table->integer('city_id')->unsigned();
+            $table->string('address',255)->nullable();
             $table->integer('property_type_id')->unsigned();
             $table->integer('management_id')->unsigned();
             $table->string('description', 255)->nullable(false);
@@ -24,7 +25,7 @@ class CreatePropertiesTable extends Migration
             $table->float('square_meter')->nullable(false);
             $table->integer('consultant_id')->unsigned();
             $table->timestamps();
-            $table->foreign('direction_id')->references('id')->on('directions')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('restrict')->onDelete('restrict');
             $table->foreign('property_type_id')->references('id')->on('property_types')->onUpdate('restrict')->onDelete('restrict');
             $table->foreign('management_id')->references('id')->on('managements')->onUpdate('restrict')->onDelete('restrict');
             $table->foreign('consultant_id')->references('id')->on('consultants')->onUpdate('restrict')->onDelete('restrict');
