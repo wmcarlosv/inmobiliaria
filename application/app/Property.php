@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Property extends Model
 {
     protected $table = "properties";
-    protected $fillable = ["direction_id","property_type_id","management_id","description","price","stratum","square_meter","consultant_id"];
+    protected $fillable = ["city_id","property_type_id","management_id","description","price","stratum","square_meter","consultant_id"];
 
     public function amenities(){
     	return $this->belongsToMany('App\Amenity','property_amenities','property_id','amenity_id');
@@ -27,5 +27,9 @@ class Property extends Model
 
     public function management(){
     	return $this->belongsTo('App\Management');
+    }
+
+    public function city(){
+        return $this->belongsTo('App\City');
     }
 }

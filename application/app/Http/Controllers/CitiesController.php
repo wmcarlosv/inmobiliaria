@@ -127,4 +127,19 @@ class CitiesController extends Controller
 
         return redirect()->route('cities.index');
     }
+
+    public function citiesForDepartament($departament_id = NULL){
+
+        $cities = City::where('departament_id','=',$departament_id)->get();
+        $array = [];
+        $cont = 0;
+
+        foreach($cities as $city){
+            $array[$cont]['id'] = $city->id;
+            $array[$cont]['name'] = $city->name;
+            $cont++;
+        }
+
+        print json_encode($array);
+    }
 }

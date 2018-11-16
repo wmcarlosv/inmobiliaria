@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Amenity;
 use App\Property;
-use App\Direction;
+use App\Departament;
+use App\City;
 use App\PropertyType;
 use App\Management;
 use App\Consultant;
@@ -33,11 +34,11 @@ class PropertiesController extends Controller
      */
     public function create()
     {
-        $directions = Direction::all();
-        $diections_array = [];
-        $diections_array[''] = 'Seleccionar';
-        foreach($directions as $direction) { 
-            $diections_array[$direction->id] = $direction->departament." ".$direction->zone." ".$direction->ubication;
+        $departaments = Departament::all();
+        $departaments_array = [];
+        $departaments_array[''] = 'Seleccionar';
+        foreach($departaments as $departament) { 
+            $departaments_array[$departament->id] = $departament->name;
         }
 
         $propertytypes = PropertyType::all();
@@ -64,7 +65,7 @@ class PropertiesController extends Controller
         $features = Feature::all();
 
         return view('admin.properties.add',[
-            'directions' => $diections_array,
+            'departaments' => $departaments_array,
             'propertytypes' => $propertytypes_array,
             'managements' => $managements_array,
             'consultants' => $consultants_array,
@@ -82,7 +83,9 @@ class PropertiesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'direction_id' => 'required',
+            'departament_id' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
             'property_type_id' => 'required',
             'management_id' => 'required',
             'description' => 'required',
@@ -94,7 +97,8 @@ class PropertiesController extends Controller
 
         $property = new Property();
 
-        $property->direction_id = $request->input('direction_id');
+        $property->city_id = $request->input('city_id');
+        $property->address = $request->input('address');
         $property->property_type_id = $request->input('property_type_id');
         $property->management_id = $request->input('management_id');
         $property->description = $request->input('description');
@@ -170,11 +174,18 @@ class PropertiesController extends Controller
     {
         $property = Property::find($id);
 
-        $directions = Direction::all();
-        $diections_array = [];
-        $diections_array[''] = 'Seleccionar';
-        foreach($directions as $direction) { 
-            $diections_array[$direction->id] = $direction->departament." ".$direction->zone." ".$direction->ubication;
+        $departaments = Departament::all();
+        $departaments_array = [];
+        $departaments_array[''] = 'Seleccionar';
+        foreach($departaments as $departament) { 
+            $departaments_array[$departament->id] = $departament->name;
+        }
+
+        $cities = City::where('departament_id','=',$property->city->departament->id)->get();
+        $cities_array = [];
+        $cities_array[''] = 'Seleccionar';
+        foreach($cities as $city) { 
+            $cities_array[$city->id] = $city->name;
         }
 
         $propertytypes = PropertyType::all();
@@ -204,7 +215,8 @@ class PropertiesController extends Controller
 
         return view('admin.properties.update',[
             'property' => $property,
-            'directions' => $diections_array,
+            'departaments' => $departaments_array,
+            'cities' => $cities_array,
             'propertytypes' => $propertytypes_array,
             'managements' => $managements_array,
             'consultants' => $consultants_array,
@@ -225,7 +237,9 @@ class PropertiesController extends Controller
     {
 
         $request->validate([
-            'direction_id' => 'required',
+            'departament_id' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
             'property_type_id' => 'required',
             'management_id' => 'required',
             'description' => 'required',
@@ -236,7 +250,8 @@ class PropertiesController extends Controller
         ]);
 
         $property = Property::findOrFail($id);
-        $property->direction_id = $request->input('direction_id');
+        $property->city_id = $request->input('city_id');
+        $property->address = $request->input('address');
         $property->property_type_id = $request->input('property_type_id');
         $property->management_id = $request->input('management_id');
         $property->description = $request->input('description');
