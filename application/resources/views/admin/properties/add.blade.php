@@ -39,6 +39,10 @@
                         {!! Form::select('city_id',['' => '-'],NULL,['class' => 'form-control', 'style'=>'width:100%;', 'id' => 'city_id']) !!}
                     </div>
                     <div class="form-group">
+                        {!! Form::label('zone_id', 'Zona: ') !!}
+                        {!! Form::select('zone_id',['' => '-'],NULL,['class' => 'form-control', 'style'=>'width:100%;', 'id' => 'zone_id']) !!}
+                    </div>
+                    <div class="form-group">
                         {!! Form::label('address', 'Dirección: ') !!}
                         {!! Form::textarea('address',null,['id' => 'address', 'class' => 'form-control']) !!}
                     </div>
@@ -114,6 +118,21 @@
                     var data = JSON.parse(response);
                     $.each(data, function(index, obj){
                         $("#city_id").append("<option value='"+obj.id+"'>"+obj.name+"</option>");
+                    });  
+                }
+            });
+        });
+
+        $("#city_id").change(function(){
+            var id = $(this).val();
+            var url = '{{ asset("admin") }}/zones/'+id;
+            $("#zone_id").empty();
+            $("#zone_id").append("<option value=''>-</option>");
+            $.get(url, function(response){
+                if(response.length > 0){
+                    var data = JSON.parse(response);
+                    $.each(data, function(index, obj){
+                        $("#zone_id").append("<option value='"+obj.id+"'>"+obj.name+"</option>");
                     });  
                 }
             });

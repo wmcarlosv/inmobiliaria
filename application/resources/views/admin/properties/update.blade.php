@@ -31,11 +31,15 @@
                 <div id="home" class="tab-pane fade in active">
                     <div class="form-group">
                         {!! Form::label('departament_id', 'Departamento: ') !!}
-                        {!! Form::select('departament_id',$departaments,$property->city->departament->id,['class' => 'form-control', 'style'=>'width:100%;', 'id' => 'departament_id']) !!}
+                        {!! Form::select('departament_id',$departaments,$property->zone->city->departament->id,['class' => 'form-control', 'style'=>'width:100%;', 'id' => 'departament_id']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('city_id', 'Ciudad: ') !!}
-                        {!! Form::select('city_id',$cities,$property->city_id,['class' => 'form-control', 'style'=>'width:100%;', 'id' => 'city_id']) !!}
+                        {!! Form::select('city_id',$cities,$property->zone->city->id,['class' => 'form-control', 'style'=>'width:100%;', 'id' => 'city_id']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('zone_id', 'Zona: ') !!}
+                        {!! Form::select('zone_id',$zones,$property->zone_id,['class' => 'form-control', 'style'=>'width:100%;', 'id' => 'zone_id']) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::label('address', 'Dirección: ') !!}
@@ -125,6 +129,21 @@
                 }
             });
         });
+
+        $("#city_id").change(function(){
+            var id = $(this).val();
+            var url = '{{ asset("admin") }}/zones/'+id;
+            $("#zone_id").empty();
+            $("#zone_id").append("<option value=''>-</option>");
+            $.get(url, function(response){
+                if(response.length > 0){
+                    var data = JSON.parse(response);
+                    $.each(data, function(index, obj){
+                        $("#zone_id").append("<option value='"+obj.id+"'>"+obj.name+"</option>");
+                    });  
+                }
+            });
+        })
 
         $("#agregar-foto").click(function(){
             $("#file-list").append('<li class="list-group-item" data-photo="si"><input type="file" name="photos[]" style="display:inline; width:80%;" /><button type="button" class="btn btn-danger remove-file">X</button></li>');

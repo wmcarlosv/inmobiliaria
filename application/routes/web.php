@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 	Route::resource('departaments', 'DepartamentsController');
 	Route::resource('cities', 'CitiesController');
 	Route::get('cities/citiesForDepartament/{id}', 'CitiesController@citiesForDepartament');
+	Route::resource('zones', 'ZonesController');
 	Route::resource('features','FeaturesController');
 	Route::resource('amenities','AmenitiesController');
 	Route::resource('property-types','PropertyTypesController');

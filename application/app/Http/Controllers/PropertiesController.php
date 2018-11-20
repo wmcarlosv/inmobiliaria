@@ -8,6 +8,7 @@ use App\Amenity;
 use App\Property;
 use App\Departament;
 use App\City;
+use App\Zone;
 use App\PropertyType;
 use App\Management;
 use App\Consultant;
@@ -85,6 +86,7 @@ class PropertiesController extends Controller
         $request->validate([
             'departament_id' => 'required',
             'city_id' => 'required',
+            'zone_id' => 'required',
             'address' => 'required',
             'property_type_id' => 'required',
             'management_id' => 'required',
@@ -97,7 +99,7 @@ class PropertiesController extends Controller
 
         $property = new Property();
 
-        $property->city_id = $request->input('city_id');
+        $property->zone_id = $request->input('zone_id');
         $property->address = $request->input('address');
         $property->property_type_id = $request->input('property_type_id');
         $property->management_id = $request->input('management_id');
@@ -181,11 +183,18 @@ class PropertiesController extends Controller
             $departaments_array[$departament->id] = $departament->name;
         }
 
-        $cities = City::where('departament_id','=',$property->city->departament->id)->get();
+        $cities = City::where('departament_id','=',$property->zone->city->departament->id)->get();
         $cities_array = [];
         $cities_array[''] = 'Seleccionar';
         foreach($cities as $city) { 
             $cities_array[$city->id] = $city->name;
+        }
+
+        $zones = Zone::where('city_id','=',$property->zone->city->id)->get();
+        $zones_array = [];
+        $zones_array[''] = 'Seleccionar';
+        foreach($zones as $zone) { 
+            $zones_array[$zone->id] = $zone->name;
         }
 
         $propertytypes = PropertyType::all();
@@ -217,6 +226,7 @@ class PropertiesController extends Controller
             'property' => $property,
             'departaments' => $departaments_array,
             'cities' => $cities_array,
+            'zones' => $zones_array,
             'propertytypes' => $propertytypes_array,
             'managements' => $managements_array,
             'consultants' => $consultants_array,

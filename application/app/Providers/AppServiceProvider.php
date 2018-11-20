@@ -51,6 +51,11 @@ class AppServiceProvider extends ServiceProvider
                             'icon' => 'map',
                         ],
                         [
+                            'text' => 'Zonas',
+                            'url'  => 'admin/zones',
+                            'icon' => 'map',
+                        ],
+                        [
                             'text' => 'Caracteristicas',
                             'url'  => 'admin/features',
                             'icon' => 'list-ol',
